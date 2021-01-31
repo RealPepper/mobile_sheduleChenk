@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">schedule Chenk</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+
+
+
+    <string name="label_for_bottom_menu_1">Неделя</string>
+    <string name="label_for_bottom_menu_2">Сегодня</string>
+    <string name="label_for_bottom_menu_3">Профиль</string>
+</resources>

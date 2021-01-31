@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_weekly"
+        android:icon="@drawable/week_shedule_icon"
+        android:title="@string/label_for_bottom_menu_1" />
+
+    <item
+        android:id="@+id/navigation_daily"
+        android:icon="@drawable/daily_shedule_icon"
+        android:title="@string/label_for_bottom_menu_2" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/user_icon"
+        android:title="@string/label_for_bottom_menu_3" />
+
+</menu>

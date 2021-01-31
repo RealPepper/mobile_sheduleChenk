@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/colorBg"/>
+
+    <item
+        android:width="210dp"
+        android:height="205dp"
+        android:drawable="@drawable/chenk_logo"
+        android:top="-232dp"
+        android:gravity="center" />
+
+
+
+    <item
+        android:width="273dp"
+        android:height="32dp"
+        android:drawable="@drawable/chenk_full_name"
+        android:gravity="bottom|center_horizontal"
+        android:bottom="50dp"
+        />
+
+</layer-list>
