@@ -7,22 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".User">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/top_gradient_for_auth" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bottom_gradient_for_auth" />
-
     <TextView
         android:id="@+id/fio_view"
         android:layout_width="wrap_content"

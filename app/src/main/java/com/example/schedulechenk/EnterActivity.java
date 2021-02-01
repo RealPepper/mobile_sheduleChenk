@@ -56,7 +56,7 @@ public class EnterActivity extends AppCompatActivity implements View.OnClickList
 
         if (!hasVisited) {
 
-            firstLaunchDialogShow();
+           // firstLaunchDialogShow();
 
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("hasVisited", true);
@@ -66,7 +66,7 @@ public class EnterActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void firstLaunchDialogShow(){
+   /* private void firstLaunchDialogShow(){ИЗМЕНИТЬ НА НОВУЮ ВЬЮШКУ
         Button okDialogButton;
 
         firstLaunchDialog = new Dialog(EnterActivity.this);
@@ -88,7 +88,7 @@ public class EnterActivity extends AppCompatActivity implements View.OnClickList
         });
 
         firstLaunchDialog.show();
-    }
+    }*/
 
 
 }
