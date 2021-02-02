@@ -29,7 +29,7 @@ public class EnterActivity extends AppCompatActivity implements View.OnClickList
 
         questionButton = findViewById(R.id.authBtn);
 
-        authButton.setOnClickListener(this);
+//        authButton.setOnClickListener(this);
         questionButton.setOnClickListener(this);
 
         //проверка на первый вход в приложение
@@ -41,10 +41,10 @@ public class EnterActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.authBtn:
+            /*case R.id.authBtn:
                     Intent intent = new Intent(EnterActivity.this, Daily.class);
                     startActivity(intent);
-                break;
+                break;*/
         }
     }
 

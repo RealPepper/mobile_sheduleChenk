@@ -53,7 +53,7 @@ public class Weekly extends AppCompatActivity {
         sheduleViewPager2.setAdapter(weeklySheduleAdapter);
     }
     void setupWeeklySheduleItems(){
-        List<WeeklyCheduleItem> weeklyCheduleItems = new ArrayList<>();
+       /* List<WeeklyCheduleItem> weeklyCheduleItems = new ArrayList<>();
 
         WeeklyCheduleItem monday = new WeeklyCheduleItem();
         monday.setDayOfWeek("Monday");
@@ -86,6 +86,6 @@ public class Weekly extends AppCompatActivity {
         weeklyCheduleItems.add(friday);
         weeklyCheduleItems.add(saturday);
 
-        weeklySheduleAdapter = new WeeklySheduleAdapter(weeklyCheduleItems);
+        weeklySheduleAdapter = new WeeklySheduleAdapter(weeklyCheduleItems);*/
     }
 }

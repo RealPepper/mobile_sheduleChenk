@@ -29,6 +29,8 @@
 
         <activity android:name=".User"/>
 
+        <activity android:name=".GuideActivity"/>
+
 
 
     </application>

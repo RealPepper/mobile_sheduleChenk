@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
-    CheckAuthorization checkAuthorization;
+    //CheckAuthorization checkAuthorization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        checkAuthorization = new CheckAuthorization();
+       /* checkAuthorization = new CheckAuthorization();
 
         if(!checkAuthorization.checkingUserAuthorization(SplashActivity.this))
         {
@@ -23,8 +23,9 @@ public class SplashActivity extends AppCompatActivity {
         else {
             Intent openActivity = new Intent(this,Daily.class);
             startActivity(openActivity);
-        }
-
+        }*/
+        Intent intent = new Intent(this, GuideActivity.class);
+        startActivity(intent);
         finish();
     }
 

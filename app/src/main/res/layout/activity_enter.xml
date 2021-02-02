@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Выберите учебный корпус"
+        android:text="Выберите учебный комплекс"
         android:textColor="@color/colorPrimaryText"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
