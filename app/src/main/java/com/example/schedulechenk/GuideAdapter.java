@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,14 +45,21 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.GuideViewHol
     class GuideViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageGuide;
+        private TextView titleText;
+        private TextView descriptionText;
+
 
         GuideViewHolder(@NonNull View itemView) {
             super(itemView);
             imageGuide = itemView.findViewById(R.id.imageGuide);
+            titleText = itemView.findViewById(R.id.guide_item_textTitle);
+            descriptionText = itemView.findViewById(R.id.guide_item_textDescription);
         }
 
         void  setGuideData(GuideItem guideItem){
             imageGuide.setImageResource(guideItem.getImage());
+            titleText.setText(guideItem.getTitleText());
+            descriptionText.setText(guideItem.getDescriptionText());
         }
 
 

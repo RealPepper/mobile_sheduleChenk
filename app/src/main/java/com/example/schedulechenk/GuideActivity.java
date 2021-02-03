@@ -66,12 +66,18 @@ public class GuideActivity extends AppCompatActivity {
 
         GuideItem itemHowStart = new GuideItem();
         itemHowStart.setImage(R.drawable.frst_guide_image);
+        itemHowStart.setTitleText("Для начала работы");
+        itemHowStart.setDescriptionText("Выберите учебный комплекс, после выберите вашу группу");
 
         GuideItem itemHowUse = new GuideItem();
-        itemHowStart.setImage(R.drawable.second_guide_image);
+        itemHowUse.setImage(R.drawable.second_guide_image);
+        itemHowUse.setTitleText("Как пользоваться");
+        itemHowUse.setDescriptionText("После запуска приложения, вы увидите расписание на день. Нажав на вкладу слева, вы увидите расписание на неделю, для перелистывания используются свайпы");
 
         GuideItem itemHowSetting = new GuideItem();
-        itemHowStart.setImage(R.drawable.thrd_guide_image);
+        itemHowSetting.setImage(R.drawable.thrd_guide_image);
+        itemHowSetting.setTitleText("Настройки");
+        itemHowSetting.setDescriptionText("В настройках можно изменить группу, а так же учебный комплекс");
 
         guideItems.add(itemHowStart);
         guideItems.add(itemHowUse);
@@ -114,7 +120,7 @@ public class GuideActivity extends AppCompatActivity {
         if(index == guideAdapter.getItemCount() - 1){
             buttonGuideAction.setText("Начать");
         } else {
-            buttonGuideAction.setText("Продолжить");
+            buttonGuideAction.setText("Далее");
         }
     }
 }
