@@ -1,18 +1,13 @@
-package com.example.schedulechenk;
+package com.example.schedulechenk.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 
+import com.example.schedulechenk.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Daily extends AppCompatActivity {

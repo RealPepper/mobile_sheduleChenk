@@ -1,4 +1,4 @@
-package com.example.schedulechenk;
+package com.example.schedulechenk.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.schedulechenk.R;
+import com.example.schedulechenk.WeeklySheduleAdapter;
+import com.example.schedulechenk.fragments.Daily;
+import com.example.schedulechenk.fragments.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Weekly extends AppCompatActivity {
 
-    private  WeeklySheduleAdapter weeklySheduleAdapter;
+    private WeeklySheduleAdapter weeklySheduleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

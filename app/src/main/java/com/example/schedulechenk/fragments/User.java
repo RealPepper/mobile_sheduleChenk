@@ -1,4 +1,4 @@
-package com.example.schedulechenk;
+package com.example.schedulechenk.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.schedulechenk.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class User extends AppCompatActivity {

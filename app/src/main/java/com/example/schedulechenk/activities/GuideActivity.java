@@ -1,4 +1,4 @@
-package com.example.schedulechenk;
+package com.example.schedulechenk.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.schedulechenk.adapters.GuideAdapter;
+import com.example.schedulechenk.GuideItem;
+import com.example.schedulechenk.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +57,7 @@ public class GuideActivity extends AppCompatActivity {
                 if(guideViewPager.getCurrentItem() +1 < guideAdapter.getItemCount()){
                     guideViewPager.setCurrentItem(guideViewPager.getCurrentItem() + 1);
                 }else{
-                    startActivity(new Intent(getApplicationContext(), EnterActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ChoiceActivity.class));
                     finish();
                 }
             }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.schedulechenk">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -21,15 +24,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EnterActivity" />
+        <activity android:name=".activities.GuideActivity"/>
 
-        <activity android:name=".Weekly" />
+        <activity android:name=".activities.ChoiceActivity" />
 
-        <activity android:name=".Daily" />
+        <activity android:name=".fragments.Weekly" />
 
-        <activity android:name=".User"/>
+        <activity android:name=".fragments.Daily" />
 
-        <activity android:name=".GuideActivity"/>
+        <activity android:name=".fragments.User"/>
+
+
 
 
 
