@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/guideActionButton"
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="55dp"
         android:fontFamily="@font/montserrat"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
-        app:cornerRadius="70dp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.961" />
+
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/guideViewPager"
