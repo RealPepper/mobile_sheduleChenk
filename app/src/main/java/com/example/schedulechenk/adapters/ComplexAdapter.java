@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedulechenk.R;
+import com.example.schedulechenk.Util.ClickListeners;
 import com.example.schedulechenk.databinding.ItemContainerComplexBinding;
 import com.example.schedulechenk.models.ComplexModel;
 
@@ -19,8 +20,11 @@ public class ComplexAdapter extends RecyclerView.Adapter<ComplexAdapter.ComplexV
     private List<ComplexModel> complexModels;
     private LayoutInflater layoutInflater;
 
-    public ComplexAdapter(List<ComplexModel> complexModels) {
+    private ClickListeners clickListener;
+
+    public ComplexAdapter(List<ComplexModel> complexModels, ClickListeners clickListener) {
         this.complexModels = complexModels;
+        this.clickListener = clickListener;
     }
 
 
@@ -47,7 +51,7 @@ public class ComplexAdapter extends RecyclerView.Adapter<ComplexAdapter.ComplexV
         return complexModels.size();
     }
 
-    static class ComplexViewHolder extends RecyclerView.ViewHolder {
+    class ComplexViewHolder extends RecyclerView.ViewHolder {
 
         private ItemContainerComplexBinding itemContainerComplexBinding;
 
@@ -59,6 +63,7 @@ public class ComplexAdapter extends RecyclerView.Adapter<ComplexAdapter.ComplexV
         public void bindComplex(ComplexModel complexModel) {
             itemContainerComplexBinding.setComplex(complexModel);
             itemContainerComplexBinding.executePendingBindings();
+            itemContainerComplexBinding.getRoot().setOnClickListener(view -> clickListener.onComplexClick(complexModel));
         }
     }
 }

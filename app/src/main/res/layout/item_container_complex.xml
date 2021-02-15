@@ -19,10 +19,12 @@
         android:elevation="6dp">
 
         <TextView
+            android:id="@+id/complexTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
             android:text="@{complex.complexName}"
+            android:tag="@{complex.complexID}"
             android:textColor="@color/colorPrimaryText"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

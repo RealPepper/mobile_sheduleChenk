@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.schedulechenk.activities.GuideActivity;
+import com.example.schedulechenk.parser.Parser;
 
 public class SplashActivity extends AppCompatActivity {
 

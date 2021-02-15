@@ -2,75 +2,70 @@ package com.example.schedulechenk.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.example.schedulechenk.adapters.ComplexAdapter;
-import com.example.schedulechenk.databinding.ActivityChoiseComplexBinding;
+import com.example.schedulechenk.Util.ClickListeners;
+import com.example.schedulechenk.Util.RecyclerViewContentInitialization;
+import com.example.schedulechenk.databinding.ActivityChoiseBinding;
 
 import com.example.schedulechenk.R;
 import com.example.schedulechenk.models.ComplexModel;
-import com.example.schedulechenk.parser.Parser;
+import com.example.schedulechenk.models.CourseModel;
+import com.example.schedulechenk.models.GroupModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
+import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
 
-public class ChoiceActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class ChoiceActivity extends AppCompatActivity implements ClickListeners {
 
     //initialization
     private static final String PREFERENCES_NAME = "check_launch";
-
-    Button authButton;
-    Button questionButton;
+    private int complexId;
 
     Dialog firstLaunchDialog;
 
-    private ActivityChoiseComplexBinding activityChoiseComplexBinding;
-    private List<ComplexModel> complexModels = new ArrayList<>();
-    private ComplexAdapter complexAdapter;
+
+    private ActivityChoiseBinding activityChoiseBinding;
+    private RecyclerViewContentInitialization recyclerInitialization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choise_complex);
-
-        questionButton = findViewById(R.id.authBtn);
-
-        questionButton.setOnClickListener(this);
-
+        setContentView(R.layout.activity_choise);
+        recyclerInitialization = new RecyclerViewContentInitialization();
         //проверка на первый вход в приложение
         //checkFirstLaunch();
 
-        activityChoiseComplexBinding = DataBindingUtil.setContentView(this, R.layout.activity_choise_complex);
-        complexModels = new Parser().getComplexWeb();
-        doInitialization();
+
+        activityChoiseBinding = DataBindingUtil.setContentView(this, R.layout.activity_choise);
+
+
+        recyclerInitialization.ComplexInitialization(activityChoiseBinding,this);
     }
-
-    //initialization choice complex recycler
-    private void doInitialization() {
-
-        activityChoiseComplexBinding.complexListRecyclerView.setHasFixedSize(true);
-        complexAdapter = new ComplexAdapter(complexModels);
-        activityChoiseComplexBinding.complexListRecyclerView.setAdapter(complexAdapter);
-
-        complexAdapter.notifyDataSetChanged();
-    }
-    //////////////////////////////
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            /*case R.id.authBtn:
-                    Intent intent = new Intent(EnterActivity.this, Daily.class);
-                    startActivity(intent);
-                break;*/
-        }
+    public void onComplexClick(ComplexModel complexModel) {
+        complexId = complexModel.getComplexID();
+        recyclerInitialization.CourseInitialization(activityChoiseBinding,this);
     }
 
+    @Override
+    public void onCourseClick(CourseModel courseModel) {
+        recyclerInitialization.GroupInitialization(activityChoiseBinding, complexId, courseModel.getCourse(), this);
+    }
+
+    @Override
+    public void onGroupClick(GroupModel groupModel) {
+
+    }
 
     private void checkFirstLaunch() {
         SharedPreferences sp = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
@@ -85,6 +80,4 @@ public class ChoiceActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-
-
 }
