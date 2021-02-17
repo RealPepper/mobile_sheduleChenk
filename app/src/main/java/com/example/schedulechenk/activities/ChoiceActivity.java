@@ -74,16 +74,16 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
 
     @Override
     public void onBackPressed(){
-        if(isComplex == true){
+        if(isComplex){
             this.finish();
 
         }
-        if (isCourse == true){
+        if (isCourse){
             recyclerInitialization.ComplexInitialization(activityChoiseBinding,this,this);
 
         }
 
-        if(isGroup == true){
+        if(isGroup){
             recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
 
         }
