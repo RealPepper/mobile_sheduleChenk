@@ -1,5 +1,6 @@
 package com.example.schedulechenk.Util;
 
+import com.example.schedulechenk.activities.ChoiceActivity;
 import com.example.schedulechenk.adapters.ComplexAdapter;
 import com.example.schedulechenk.adapters.CourseAdapter;
 import com.example.schedulechenk.adapters.GroupAdapter;
@@ -10,14 +11,10 @@ import com.example.schedulechenk.models.GroupModel;
 import com.example.schedulechenk.parser.Parser;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
-
 
 public class RecyclerViewContentInitialization {
 
@@ -30,17 +27,23 @@ public class RecyclerViewContentInitialization {
     private List<GroupModel> groupModels;
     private GroupAdapter groupAdapter;
 
-    public void ComplexInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners complexListener) {
+    public void ComplexInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners complexListener, ChoiceActivity activity) {
+        activity.isComplex = true;
+        activity.isCourse = false;
 
         complexModels = new Parser().getComplexWeb();
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
-        complexAdapter = new ComplexAdapter(complexModels,complexListener);
+        complexAdapter = new ComplexAdapter(complexModels, complexListener);
         activityChoiseBinding.choiceRecyclerView.setAdapter(new AlphaInAnimationAdapter(complexAdapter));
 
         complexAdapter.notifyDataSetChanged();
     }
 
-    public void CourseInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners courseListener) {
+    public void CourseInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners courseListener, ChoiceActivity activity) {
+        activity.isCourse = true;
+        activity.isComplex = false;
+        activity.isGroup = false;
+
         courseModels = new Parser().getCourse();
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
         courseAdapter = new CourseAdapter(courseModels, courseListener);
@@ -49,17 +52,18 @@ public class RecyclerViewContentInitialization {
         courseAdapter.notifyDataSetChanged();
     }
 
-    public void GroupInitialization(ActivityChoiseBinding activityChoiseBinding, int complexId, String course, ClickListeners groupListener) {
+    public void GroupInitialization(ActivityChoiseBinding activityChoiseBinding, int complexId, String course, ClickListeners groupListener, ChoiceActivity activity) {
+        activity.isGroup = true;
+        activity.isCourse = false;
+
         groupModels = new Parser().getGroupWeb(complexId);
 
         List<GroupModel> sortedGroupModels = new ArrayList<>();
-
         for (GroupModel group : groupModels) {
             if (group.getYear().equals(course)) {
                 sortedGroupModels.add(group);
             }
         }
-
 
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
         groupAdapter = new GroupAdapter(sortedGroupModels, groupListener);
@@ -67,5 +71,4 @@ public class RecyclerViewContentInitialization {
 
         courseAdapter.notifyDataSetChanged();
     }
-
 }

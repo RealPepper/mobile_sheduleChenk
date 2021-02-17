@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +33,9 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
 
     Dialog firstLaunchDialog;
 
+    public boolean isComplex = false,
+                   isCourse = false,
+                   isGroup = false;
 
     private ActivityChoiseBinding activityChoiseBinding;
     private RecyclerViewContentInitialization recyclerInitialization;
@@ -48,18 +52,19 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
 
         activityChoiseBinding = DataBindingUtil.setContentView(this, R.layout.activity_choise);
 
-        recyclerInitialization.ComplexInitialization(activityChoiseBinding,this);
+        recyclerInitialization.ComplexInitialization(activityChoiseBinding,this,this);
     }
 
     @Override
     public void onComplexClick(ComplexModel complexModel) {
         complexId = complexModel.getComplexID();
-        recyclerInitialization.CourseInitialization(activityChoiseBinding,this);
+        recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
+
     }
 
     @Override
     public void onCourseClick(CourseModel courseModel) {
-        recyclerInitialization.GroupInitialization(activityChoiseBinding, complexId, courseModel.getCourse(), this);
+        recyclerInitialization.GroupInitialization(activityChoiseBinding, complexId, courseModel.getCourse(), this,this);
     }
 
     @Override
@@ -67,6 +72,23 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
 
     }
 
+    @Override
+    public void onBackPressed(){
+        if(isComplex == true){
+            this.finish();
+
+        }
+        if (isCourse == true){
+            recyclerInitialization.ComplexInitialization(activityChoiseBinding,this,this);
+
+        }
+
+        if(isGroup == true){
+            recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
+
+        }
+
+    }
     private void checkFirstLaunch() {
         SharedPreferences sp = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
 
