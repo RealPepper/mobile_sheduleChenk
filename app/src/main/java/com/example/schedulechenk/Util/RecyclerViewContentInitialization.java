@@ -17,7 +17,6 @@ import java.util.Set;
 
 
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 
 public class RecyclerViewContentInitialization {
@@ -32,38 +31,38 @@ public class RecyclerViewContentInitialization {
     private GroupAdapter groupAdapter;
 
     public void ComplexInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners complexListener) {
+
         complexModels = new Parser().getComplexWeb();
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
         complexAdapter = new ComplexAdapter(complexModels,complexListener);
         activityChoiseBinding.choiceRecyclerView.setAdapter(new AlphaInAnimationAdapter(complexAdapter));
+
         complexAdapter.notifyDataSetChanged();
     }
 
     public void CourseInitialization(ActivityChoiseBinding activityChoiseBinding, ClickListeners courseListener) {
         courseModels = new Parser().getCourse();
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
-        courseAdapter = new CourseAdapter(courseModels,courseListener);
+        courseAdapter = new CourseAdapter(courseModels, courseListener);
         activityChoiseBinding.choiceRecyclerView.setAdapter(new AlphaInAnimationAdapter(courseAdapter));
 
         courseAdapter.notifyDataSetChanged();
     }
 
-    public void GroupInitialization(ActivityChoiseBinding activityChoiseBinding,int complexId, String course, ClickListeners groupListener){
+    public void GroupInitialization(ActivityChoiseBinding activityChoiseBinding, int complexId, String course, ClickListeners groupListener) {
         groupModels = new Parser().getGroupWeb(complexId);
 
         List<GroupModel> sortedGroupModels = new ArrayList<>();
 
-        for(GroupModel group: groupModels){
-            if(group.getYear().equals(course)){
+        for (GroupModel group : groupModels) {
+            if (group.getYear().equals(course)) {
                 sortedGroupModels.add(group);
             }
         }
 
 
-
-
         activityChoiseBinding.choiceRecyclerView.setHasFixedSize(true);
-        groupAdapter = new GroupAdapter(sortedGroupModels,groupListener);
+        groupAdapter = new GroupAdapter(sortedGroupModels, groupListener);
         activityChoiseBinding.choiceRecyclerView.setAdapter(new AlphaInAnimationAdapter(groupAdapter));
 
         courseAdapter.notifyDataSetChanged();

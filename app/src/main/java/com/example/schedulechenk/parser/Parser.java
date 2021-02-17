@@ -1,10 +1,13 @@
 package com.example.schedulechenk.parser;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.example.schedulechenk.models.ComplexModel;
 import com.example.schedulechenk.models.CourseModel;
 import com.example.schedulechenk.models.GroupModel;
+import com.example.schedulechenk.models.PairModel;
+import com.example.schedulechenk.models.ScheduleModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +16,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Parser {
@@ -22,10 +26,11 @@ public class Parser {
 
     List<ComplexModel> complexModels = new ArrayList<>();
     List<GroupModel> groupModels = new ArrayList<>();
+    List<ScheduleModel> scheduleModels = new ArrayList<>();
 
     private String complexUrl = "https://pronew.chenk.ru/blocks/manage_groups/website/view1.php";
     private String groupUrl = "https://pronew.chenk.ru/blocks/manage_groups/website/list.php?id=";
-    private String ScheduleUrl = "https://pronew.chenk.ru/blocks/manage_groups/website/view1.php";
+    private String scheduleUrl = "https://pronew.chenk.ru/blocks/manage_groups/website/view.php?gr=";
 
 
     public List<ComplexModel> getComplexWeb() {
@@ -35,7 +40,6 @@ public class Parser {
                 complexDocument = Jsoup.connect(complexUrl).get();
                 Elements complexButtons = complexDocument.getElementsByClass("spec-select-block gray-gradient");
 
-                //вытащить айдишники group_id
                 Log.d("complexParse", "Первый " + complexButtons.get(0).text() +
                         "\nВторой " + complexButtons.get(1).text());
 
@@ -48,20 +52,27 @@ public class Parser {
                         complexModel.setComplexID(3);
                     complexModels.add(complexModel);
                 }
-            } catch (IOException e) {e.printStackTrace();}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         getComplexThread.start();
 
-        try {getComplexThread.join();}
-        catch (InterruptedException e) { e.printStackTrace();}
 
-        return  complexModels;
+        try {
+            getComplexThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        return complexModels;
     }
 
-    public List<CourseModel> getCourse(){
+    public List<CourseModel> getCourse() {
         List<CourseModel> courseModels = new ArrayList<>();
 
-        for(int i = 1; i < 5; i++){
+        for (int i = 1; i < 5; i++) {
             CourseModel courseModel = new CourseModel();
             courseModel.setCourse(i + " курс:");
             courseModels.add(courseModel);
@@ -72,16 +83,17 @@ public class Parser {
     public List<GroupModel> getGroupWeb(int id) {
         Thread getGroupThread = new Thread(() -> {
             try {
-                groupDocument = Jsoup.connect(groupUrl+id).get();
-                Element container = groupDocument.getElementsByClass("spec-year-block-container").get(13);
+                groupDocument = Jsoup.connect(groupUrl + id).get();
+                int size = groupDocument.getElementsByClass("spec-year-block-container").size();
+                Element container = groupDocument.getElementsByClass("spec-year-block-container").get(size - 1);
                 Elements blocks = container.getElementsByClass("spec-year-block");
                 //blocks.get(0) фулл блок с 1м курсом
                 //blocks.get(0).children().get(0).text() отдельные элементы первого курса
 
-                for (Element element: blocks){
+                for (Element element : blocks) {
                     Log.d("complexParse", "" + element);
 
-                    for(int i = 1; i< element.childrenSize(); i++){
+                    for (int i = 1; i < element.childrenSize(); i++) {
                         GroupModel groupModel = new GroupModel();
                         groupModel.setComplexId(id);
                         groupModel.setYear(element.children().get(0).text());
@@ -100,17 +112,87 @@ public class Parser {
                     }
 
                 }
-            } catch (IOException e) {e.printStackTrace();}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+
+
         getGroupThread.start();
 
-        try {getGroupThread.join();}
-        catch (InterruptedException e) { e.printStackTrace();}
+        try {
+            getGroupThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        return  groupModels;
+        return groupModels;
     }
 
 
+    public List<ScheduleModel> getScheduleWeb(int groupId, int complexId) {
+        Thread getSchedule = new Thread(() -> {
+            try {
+                //получаем неделю
+                sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
+
+                Calendar c = Calendar.getInstance();
+                if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                    int nextWeek = Integer.parseInt(sheduleDocument.getElementsByTag("span")
+                                                                    .get(3).text()
+                                                                    .split(" ")[0]) + 1;
+                    sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&week=" + nextWeek + "&dep=" + complexId).get();
+                }
+
+                Elements scheduleTable = sheduleDocument.getElementsByTag("td");
+                List<PairModel> pairModels = new ArrayList<>();
+
+                for(Element tdElement:scheduleTable){
+                    for(Element lessonElement:tdElement.children().get(1).children()){
+                        Elements firstElementInLessonDiv = lessonElement.children().first().children();
+                        Elements secondElementInLessonDiv = lessonElement.children().last().children().get(0).children();
+                        Elements thridElementInLessonDiv = lessonElement.children().last().children().get(1).children();
+
+
+                        PairModel pairModel = new PairModel();
+                        pairModel.setPair(Integer.parseInt(firstElementInLessonDiv.get(0).text()));
+                        pairModel.setStartTime(firstElementInLessonDiv.get(1).text());
+                        pairModel.setEndTime(firstElementInLessonDiv.get(2).text());
+                        pairModel.setDiscipline(secondElementInLessonDiv.first().text());
+                        if(lessonElement.getElementsByTag("sup").size() != 0)
+                            pairModel.setIsCancel(secondElementInLessonDiv.last().text());
+                        pairModel.setEducator(thridElementInLessonDiv.first().children().first().text());
+                        pairModel.setCabinet(thridElementInLessonDiv.last().text());
+
+                        pairModels.add(pairModel);
+                    }
+                    ScheduleModel scheduleModel = new ScheduleModel();
+                    scheduleModel.setWeek(sheduleDocument.getElementsByTag("span").get(3).text());
+                    scheduleModel.setDay(tdElement.children().get(0).text());
+                    scheduleModel.setPairModels(pairModels);
+                    scheduleModels.add(scheduleModel);
+                }
+                //region Logs
+                //Log.d("complexParse", "таблы с расписанием " + scheduleTable.text());
+                //Log.d("complexParse", "неделя с сайта " + week.text());
+                //Log.d("complexParse", "день недели устройства " + c.get(Calendar.DAY_OF_WEEK));
+                //Log.d("complexParse", "дни недели с таблицы " + pairDays.text());
+                //Log.d("complexParse", "td " + tdSchedule.text());
+                //Log.d("complexParse", "schedule element " + lessonDiv.getElementsByTag("sup").size());
+                //endregion
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        getSchedule.start();
+        try {
+            getSchedule.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return scheduleModels;
+    }
 }
 
 

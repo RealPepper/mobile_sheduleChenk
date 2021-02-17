@@ -3,24 +3,24 @@ package com.example.schedulechenk.models;
 import java.util.List;
 
 public class ScheduleModel {
-    private String Week;
-    private String Day;
+    private String week;
+    private String day;
     private List<PairModel> pairModels;
 
     public String getWeek() {
-        return Week;
+        return week;
     }
 
     public void setWeek(String week) {
-        Week = week;
+        week = week;
     }
 
     public String getDay() {
-        return Day;
+        return day;
     }
 
     public void setDay(String day) {
-        Day = day;
+        day = day;
     }
 
     public List<PairModel> getPairModels() {

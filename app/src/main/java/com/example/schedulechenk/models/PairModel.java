@@ -1,49 +1,67 @@
 package com.example.schedulechenk.models;
 
 public class PairModel {
-    private int Pair;
-    private String Time;
-    private String Educator;
-    private String Discipline;
-    private String Cabinet;
+    private int pair;
+    private String startTime;
+    private String endTime;
+    private String isCancel;
+    private String educator;
+    private String discipline;
+    private String cabinet;
 
     public int getPair() {
-        return Pair;
+        return pair;
     }
 
     public void setPair(int pair) {
-        Pair = pair;
+        this.pair = pair;
     }
 
-    public String getTime() {
-        return Time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        Time = time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getIsCancel() {
+        return isCancel;
+    }
+
+    public void setIsCancel(String isCancel) {
+        this.isCancel = isCancel;
     }
 
     public String getEducator() {
-        return Educator;
+        return educator;
     }
 
     public void setEducator(String educator) {
-        Educator = educator;
+        this.educator = educator;
     }
 
     public String getDiscipline() {
-        return Discipline;
+        return discipline;
     }
 
     public void setDiscipline(String discipline) {
-        Discipline = discipline;
+        this.discipline = discipline;
     }
 
     public String getCabinet() {
-        return Cabinet;
+        return cabinet;
     }
 
     public void setCabinet(String cabinet) {
-        Cabinet = cabinet;
+        this.cabinet = cabinet;
     }
 }

@@ -40,13 +40,13 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choise);
-        recyclerInitialization = new RecyclerViewContentInitialization();
+
         //проверка на первый вход в приложение
         //checkFirstLaunch();
 
+        recyclerInitialization = new RecyclerViewContentInitialization();
 
         activityChoiseBinding = DataBindingUtil.setContentView(this, R.layout.activity_choise);
-
 
         recyclerInitialization.ComplexInitialization(activityChoiseBinding,this);
     }

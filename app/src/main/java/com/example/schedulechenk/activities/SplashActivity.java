@@ -6,7 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.schedulechenk.activities.GuideActivity;
+import com.example.schedulechenk.models.ComplexModel;
 import com.example.schedulechenk.parser.Parser;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,6 +31,11 @@ public class SplashActivity extends AppCompatActivity {
             Intent openActivity = new Intent(this,Daily.class);
             startActivity(openActivity);
         }*/
+
+
+
+        new Parser().getScheduleWeb(171,3);
+
         Intent intent = new Intent(this, GuideActivity.class);
         startActivity(intent);
         finish();
