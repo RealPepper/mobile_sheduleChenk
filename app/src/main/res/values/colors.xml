@@ -8,4 +8,5 @@
 
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#A4A4A4</color>
+    <color name="redText">#FF6D6D</color>
 </resources>

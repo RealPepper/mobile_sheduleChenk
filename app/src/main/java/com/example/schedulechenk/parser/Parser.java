@@ -136,40 +136,45 @@ public class Parser {
                 //получаем неделю
                 sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
 
-                Calendar c = Calendar.getInstance();
-                if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    int nextWeek = Integer.parseInt(sheduleDocument.getElementsByTag("span")
-                                                                    .get(3).text()
-                                                                    .split(" ")[0]) + 1;
-                    sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&week=" + nextWeek + "&dep=" + complexId).get();
-                }
-
                 Elements scheduleTable = sheduleDocument.getElementsByTag("td");
-                List<PairModel> pairModels = new ArrayList<>();
+
 
                 for(Element tdElement:scheduleTable){
+                    List<PairModel> pairModels = new ArrayList<>();
                     for(Element lessonElement:tdElement.children().get(1).children()){
+
                         Elements firstElementInLessonDiv = lessonElement.children().first().children();
                         Elements secondElementInLessonDiv = lessonElement.children().last().children().get(0).children();
                         Elements thridElementInLessonDiv = lessonElement.children().last().children().get(1).children();
 
-
                         PairModel pairModel = new PairModel();
-                        pairModel.setPair(Integer.parseInt(firstElementInLessonDiv.get(0).text()));
+
+                        pairModel.setPair(firstElementInLessonDiv.get(0).text());
+
                         pairModel.setStartTime(firstElementInLessonDiv.get(1).text());
+
                         pairModel.setEndTime(firstElementInLessonDiv.get(2).text());
+
                         pairModel.setDiscipline(secondElementInLessonDiv.first().text());
+
                         if(lessonElement.getElementsByTag("sup").size() != 0)
                             pairModel.setIsCancel(secondElementInLessonDiv.last().text());
+
                         pairModel.setEducator(thridElementInLessonDiv.first().children().first().text());
+
                         pairModel.setCabinet(thridElementInLessonDiv.last().text());
 
                         pairModels.add(pairModel);
                     }
                     ScheduleModel scheduleModel = new ScheduleModel();
+
                     scheduleModel.setWeek(sheduleDocument.getElementsByTag("span").get(3).text());
+
                     scheduleModel.setDay(tdElement.children().get(0).text());
+
+
                     scheduleModel.setPairModels(pairModels);
+
                     scheduleModels.add(scheduleModel);
                 }
                 //region Logs

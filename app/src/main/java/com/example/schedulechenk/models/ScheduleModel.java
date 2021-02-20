@@ -12,7 +12,7 @@ public class ScheduleModel {
     }
 
     public void setWeek(String week) {
-        week = week;
+        this.week = week;
     }
 
     public String getDay() {
@@ -20,7 +20,7 @@ public class ScheduleModel {
     }
 
     public void setDay(String day) {
-        day = day;
+        this.day = day;
     }
 
     public List<PairModel> getPairModels() {

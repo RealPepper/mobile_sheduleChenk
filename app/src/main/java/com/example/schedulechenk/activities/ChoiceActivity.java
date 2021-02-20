@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.example.schedulechenk.Util.RecyclerViewContentInitialization;
 import com.example.schedulechenk.databinding.ActivityChoiseBinding;
 
 import com.example.schedulechenk.R;
+import com.example.schedulechenk.fragments.Weekly;
 import com.example.schedulechenk.models.ComplexModel;
 import com.example.schedulechenk.models.CourseModel;
 import com.example.schedulechenk.models.GroupModel;
@@ -27,15 +29,15 @@ import jp.wasabeef.recyclerview.animators.FadeInDownAnimator;
 
 public class ChoiceActivity extends AppCompatActivity implements ClickListeners {
 
-    //initialization
-    private static final String PREFERENCES_NAME = "check_launch";
-    private int complexId;
 
-    Dialog firstLaunchDialog;
+    private int complexId;
 
     public boolean isComplex = false,
                    isCourse = false,
                    isGroup = false;
+
+    private static final String PREFERENCES_NAME = "user_choice";
+    SharedPreferences sharedPreferences;
 
     private ActivityChoiseBinding activityChoiseBinding;
     private RecyclerViewContentInitialization recyclerInitialization;
@@ -45,13 +47,8 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choise);
 
-        //проверка на первый вход в приложение
-        //checkFirstLaunch();
-
         recyclerInitialization = new RecyclerViewContentInitialization();
-
         activityChoiseBinding = DataBindingUtil.setContentView(this, R.layout.activity_choise);
-
         recyclerInitialization.ComplexInitialization(activityChoiseBinding,this,this);
     }
 
@@ -60,6 +57,7 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
         complexId = complexModel.getComplexID();
         recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
 
+        setSharedPreferences("complexId",complexId);
     }
 
     @Override
@@ -69,37 +67,36 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
 
     @Override
     public void onGroupClick(GroupModel groupModel) {
-
+        setSharedPreferences("group",groupModel.getGroupId());
+        Intent intent= new Intent(this, Weekly.class);
+        startActivity(intent);
     }
 
     @Override
     public void onBackPressed(){
         if(isComplex){
             this.finish();
-
         }
         if (isCourse){
             recyclerInitialization.ComplexInitialization(activityChoiseBinding,this,this);
-
         }
 
         if(isGroup){
             recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
-
         }
-
     }
-    private void checkFirstLaunch() {
-        SharedPreferences sp = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
 
-        boolean hasVisited = sp.getBoolean("hasVisited", false);
-
-        if (!hasVisited) {
-
-            SharedPreferences.Editor e = sp.edit();
-            e.putBoolean("hasVisited", true);
-            e.commit();
-        }
-
+    public void setSharedPreferences(String name,String value){
+        sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(name, value);
+        editor.apply();
     }
+    public void setSharedPreferences(String name,int value){
+        sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(name, value);
+        editor.apply();
+    }
+
 }

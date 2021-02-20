@@ -1,7 +1,7 @@
 package com.example.schedulechenk.models;
 
 public class PairModel {
-    private int pair;
+    private String pair;
     private String startTime;
     private String endTime;
     private String isCancel;
@@ -9,11 +9,11 @@ public class PairModel {
     private String discipline;
     private String cabinet;
 
-    public int getPair() {
+    public String getPair() {
         return pair;
     }
 
-    public void setPair(int pair) {
+    public void setPair(String pair) {
         this.pair = pair;
     }
 
