@@ -46,11 +46,11 @@ public class Weekly extends AppCompatActivity {
                 case R.id.navigation_weekly:
 
                     return true;
-                case R.id.navigation_daily:
+                /*case R.id.navigation_daily:
                     startActivity(new Intent(getApplicationContext(),
                             Daily.class));
                     overridePendingTransition(0,0);
-                    return true;
+                    return true;*/
                 case R.id.navigation_user:
                     startActivity(new Intent(getApplicationContext(),
                             User.class));

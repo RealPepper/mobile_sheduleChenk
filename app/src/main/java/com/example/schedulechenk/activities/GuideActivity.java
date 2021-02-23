@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.schedulechenk.adapters.GuideAdapter;
 import com.example.schedulechenk.GuideItem;
 import com.example.schedulechenk.R;
+import com.example.schedulechenk.fragments.Weekly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class GuideActivity extends AppCompatActivity {
         final ViewPager2 guideViewPager = findViewById(R.id.guideViewPager);
         guideViewPager.setAdapter(guideAdapter);
 
+        Bundle extras =getIntent().getExtras();
 
         setupGuideIndicators();
         setCurrentGuideIndicators(0);
@@ -57,6 +59,12 @@ public class GuideActivity extends AppCompatActivity {
                 if(guideViewPager.getCurrentItem() +1 < guideAdapter.getItemCount()){
                     guideViewPager.setCurrentItem(guideViewPager.getCurrentItem() + 1);
                 }else{
+                    if(extras != null) {
+                        if(extras.getBoolean("isRepeat")){
+                            startActivity(new Intent(getApplicationContext(), Weekly.class));
+                            finish();
+                        }
+                    }
                     startActivity(new Intent(getApplicationContext(), ChoiceActivity.class));
                     finish();
                 }

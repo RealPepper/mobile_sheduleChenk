@@ -58,6 +58,7 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
         recyclerInitialization.CourseInitialization(activityChoiseBinding,this, this);
 
         setSharedPreferences("complexId",complexId);
+        setSharedPreferences("complexName",complexModel.getComplexName());
     }
 
     @Override
@@ -68,6 +69,7 @@ public class ChoiceActivity extends AppCompatActivity implements ClickListeners 
     @Override
     public void onGroupClick(GroupModel groupModel) {
         setSharedPreferences("group",groupModel.getGroupId());
+        setSharedPreferences("groupName",groupModel.getGroup());
         Intent intent= new Intent(this, Weekly.class);
         startActivity(intent);
     }

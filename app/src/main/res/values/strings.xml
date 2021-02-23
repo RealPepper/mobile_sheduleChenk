@@ -11,5 +11,5 @@
 
     <string name="label_for_bottom_menu_1">Неделя</string>
     <string name="label_for_bottom_menu_2">Сегодня</string>
-    <string name="label_for_bottom_menu_3">Профиль</string>
+    <string name="label_for_bottom_menu_3">Настройки</string>
 </resources>

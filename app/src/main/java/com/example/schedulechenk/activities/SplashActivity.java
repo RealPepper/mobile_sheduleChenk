@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.schedulechenk.activities.GuideActivity;
+import com.example.schedulechenk.fragments.Weekly;
 import com.example.schedulechenk.models.ComplexModel;
 import com.example.schedulechenk.parser.Parser;
 
@@ -17,14 +18,25 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final String PREFERENCES_NAME = "check_launch";
     SharedPreferences sp;
+    SharedPreferences sharedPreferences;
+    private static final String PREFERENCES_NAME_CHOICE = "user_choice";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences(PREFERENCES_NAME_CHOICE,MODE_PRIVATE);
+        int complexId = sharedPreferences.getInt("complexId", 0),
+            groupId = sharedPreferences.getInt("group",0);
 
         if(isLaunching()){
-            Intent intent = new Intent(this, ChoiceActivity.class);
-            startActivity(intent);
+            if(complexId != 0 && groupId !=0){
+                Intent intent = new Intent(this, Weekly.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, ChoiceActivity.class);
+                startActivity(intent);
+            }
+
         }else{
             Intent intent = new Intent(this, GuideActivity.class);
             startActivity(intent);

@@ -51,7 +51,7 @@
             android:layout_marginTop="17dp"
             android:fontFamily="@font/montserrat"
             android:text="@{pair.isCancel}"
-            android:textColor="#6DCBFF"
+            android:textColor="@color/redText"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.04"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@{pair.discipline}"
+            android:text='@{pair.discipline}'
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -90,9 +90,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat"
-            android:text='@{"Кабинет "+pair.cabinet}'
+            android:text='@{"Кабинет " + pair.cabinet}'
             android:textColor="@color/colorSecondaryText"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"

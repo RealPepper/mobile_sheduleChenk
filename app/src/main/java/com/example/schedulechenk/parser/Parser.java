@@ -138,40 +138,50 @@ public class Parser {
 
                 Elements scheduleTable = sheduleDocument.getElementsByTag("td");
 
-
                 for(Element tdElement:scheduleTable){
-                    List<PairModel> pairModels = new ArrayList<>();
-                    for(Element lessonElement:tdElement.children().get(1).children()){
 
-                        Elements firstElementInLessonDiv = lessonElement.children().first().children();
-                        Elements secondElementInLessonDiv = lessonElement.children().last().children().get(0).children();
-                        Elements thridElementInLessonDiv = lessonElement.children().last().children().get(1).children();
+                    List<PairModel> pairModels = new ArrayList<>();
+
+                    for(Element lessonElement:tdElement.children().get(1).children()){
 
                         PairModel pairModel = new PairModel();
 
-                        pairModel.setPair(firstElementInLessonDiv.get(0).text());
 
-                        pairModel.setStartTime(firstElementInLessonDiv.get(1).text());
+                        Elements firstElementInLessonDiv = lessonElement.children().first().children();
 
-                        pairModel.setEndTime(firstElementInLessonDiv.get(2).text());
+                        if(lessonElement.children().last().children().size() != 0){
+                            Elements secondElementInLessonDiv = lessonElement.children().last().children().get(0).children();
+                            Elements thridElementInLessonDiv = lessonElement.children().last().children().get(1).children();
 
-                        pairModel.setDiscipline(secondElementInLessonDiv.first().text());
+                            pairModel.setDiscipline(secondElementInLessonDiv.first().text());
 
-                        if(lessonElement.getElementsByTag("sup").size() != 0)
-                            pairModel.setIsCancel(secondElementInLessonDiv.last().text());
+                            if(lessonElement.getElementsByTag("sup").size() != 0)
+                                pairModel.setIsCancel(secondElementInLessonDiv.last().text());
 
-                        pairModel.setEducator(thridElementInLessonDiv.first().children().first().text());
+                            pairModel.setPair(firstElementInLessonDiv.get(0).text());
 
-                        pairModel.setCabinet(thridElementInLessonDiv.last().text());
+                            pairModel.setStartTime(firstElementInLessonDiv.get(1).text());
 
+                            pairModel.setEndTime(firstElementInLessonDiv.get(2).text());
+
+                            pairModel.setEducator(thridElementInLessonDiv.first().children().first().text());
+
+                            pairModel.setCabinet(thridElementInLessonDiv.last().text());
+
+                        }else {
+                            pairModel.setCabinet("отсутствует");
+                            pairModel.setPair(firstElementInLessonDiv.get(0).text());
+                            pairModel.setStartTime(firstElementInLessonDiv.get(1).text());
+                            pairModel.setEndTime(firstElementInLessonDiv.get(2).text());
+                        }
                         pairModels.add(pairModel);
                     }
+
                     ScheduleModel scheduleModel = new ScheduleModel();
 
                     scheduleModel.setWeek(sheduleDocument.getElementsByTag("span").get(3).text());
 
                     scheduleModel.setDay(tdElement.children().get(0).text());
-
 
                     scheduleModel.setPairModels(pairModels);
 
