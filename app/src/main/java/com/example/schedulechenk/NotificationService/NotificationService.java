@@ -1,12 +1,15 @@
-package com.example.schedulechenk.NitificationService;
+package com.example.schedulechenk.NotificationService;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.IBinder;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -23,42 +26,39 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
+public class NotificationService extends Service {
 
-public class ChangeScheduleNotification extends BroadcastReceiver {
     private SharedPreferences sharedPreferences;
     private static final String PREFERENCES_NAME = "user_choice";
-
     private List<ScheduleModel> currentSchedule;
 
-    private Intent intentTL;
-
-
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-       //Интент для активити, которую мы хотим запускать при нажатии на уведомление
-        intentTL = new Intent(context, Weekly.class);
+    public void onCreate() {
+        super.onCreate();
+    }
 
-        sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME,MODE_PRIVATE);
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this, "Create service", Toast.LENGTH_SHORT).show();
+        sharedPreferences = this.getSharedPreferences(PREFERENCES_NAME,MODE_PRIVATE);
         int complexId = sharedPreferences.getInt("complexId", 0),
                 groupId = sharedPreferences.getInt("group",0);
 
         currentSchedule = new Parser().getScheduleWeb(groupId,complexId);
-
-        if(!scheduleIsEquals(context,currentSchedule)){
-            createNotification(context, intent);
-            rewriteFile(context,currentSchedule);
+        if(!scheduleIsEquals(this,currentSchedule)){
+            createNotification();
+            rewriteFile(this,currentSchedule);
         }
 
-        // Установим следующее напоминание.
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + /*7200*1000*/5000, pendingIntent);
+        reCreateAlarmManager(this);
+        return START_STICKY;
     }
-
     private Boolean scheduleIsEquals(Context context,List<ScheduleModel> currentScheduleModels){
         String oldSchedule = "";
         String currentSchedule="";
@@ -80,7 +80,7 @@ public class ChangeScheduleNotification extends BroadcastReceiver {
         }
         return true;
     }
-    void rewriteFile(Context context,List<ScheduleModel> scheduleModels) {
+    private void rewriteFile(Context context,List<ScheduleModel> scheduleModels) {
         try {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                     context.openFileOutput("schedule", MODE_PRIVATE)));
@@ -94,19 +94,35 @@ public class ChangeScheduleNotification extends BroadcastReceiver {
             e.printStackTrace();
         }
     }
-    private void createNotification(Context context,Intent intent){
+
+    private void createNotification(){
+        //канал уведомлений создается в SplashActivity.Class
+        Intent intentTL = new Intent(this, Weekly.class);
         NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context, "Chenk")
+                new NotificationCompat.Builder(this, "Chenk")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Расписание изменилось")
-                        .setContentText("Расписание на  изменилось")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setContentIntent(PendingIntent.getActivity(context, 0, intentTL,
+                        .setContentText("Расписание было изменено")
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setContentIntent(PendingIntent.getActivity(this, 0, intentTL,
                                 PendingIntent.FLAG_CANCEL_CURRENT))
                         .setAutoCancel(true);
 
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(1,builder.build());
+    }
 
+    private void reCreateAlarmManager(Context context){
+        AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent1 = new Intent(context, NotificationService.class);
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            pendingIntent = PendingIntent.getForegroundService(this, 0,
+                    intent1, PendingIntent.FLAG_CANCEL_CURRENT);
+        }else {
+            pendingIntent = PendingIntent.getService(this, 0,
+                    intent1, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
+        am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+3600000, pendingIntent); //3600000 = час
     }
 }

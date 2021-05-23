@@ -15,8 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".NitificationService.ChangeScheduleNotification" />
 
+        <service android:name=".NotificationService.NotificationService"
+            android:process=".ChenkService"/>
+        <receiver android:name=".NotificationService.NotificationReceiver"
+            android:exported="true"
+            android:process=".ChenkReceiver"/>
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"

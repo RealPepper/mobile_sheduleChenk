@@ -1,7 +1,10 @@
 package com.example.schedulechenk.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,19 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //создаем канал уведомлений
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Расписание";
+            String description = "Информация об изменении в расписании";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel("Chenk",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
         sharedPreferences = getSharedPreferences(PREFERENCES_NAME_CHOICE,MODE_PRIVATE);
         int complexId = sharedPreferences.getInt("complexId", 0),
             groupId = sharedPreferences.getInt("group",0);

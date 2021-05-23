@@ -4,22 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.schedulechenk.NotificationService.NotificationReceiver;
 import com.example.schedulechenk.R;
 import com.example.schedulechenk.adapters.WeeklyPagerScheduleAdapter;
 import com.example.schedulechenk.databinding.ActivityWeeklyBinding;
 import com.example.schedulechenk.models.PairModel;
 import com.example.schedulechenk.models.ScheduleModel;
 import com.example.schedulechenk.parser.Parser;
-import com.example.schedulechenk.NitificationService.ChangeScheduleNotification;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedWriter;
@@ -44,7 +42,6 @@ public class Weekly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly);
-        createNotificationChannel();
 
         activityWeeklyBinding = DataBindingUtil.setContentView(this, R.layout.activity_weekly);
 
@@ -69,7 +66,6 @@ public class Weekly extends AppCompatActivity {
             }
             return false;
         });
-
 
         WeeklyScheduleInitialization();
 
@@ -108,27 +104,13 @@ public class Weekly extends AppCompatActivity {
     }
 
     private void restartNotify() {
-
+        Toast.makeText(Weekly.this, "Create alarm", Toast.LENGTH_SHORT).show();
         am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, ChangeScheduleNotification.class);
+        Intent intent = new Intent(this, NotificationReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
                 intent, PendingIntent.FLAG_CANCEL_CURRENT );
         am.cancel(pendingIntent);
         am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent);
-    }
-
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "ScheduleChenk";
-            String description = "Channel for update schedule";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-            NotificationChannel channel = new NotificationChannel("Chenk",name,importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }
