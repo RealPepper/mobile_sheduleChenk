@@ -58,13 +58,11 @@ public class Parser {
         });
         getComplexThread.start();
 
-
         try {
             getComplexThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         return complexModels;
     }
@@ -116,8 +114,6 @@ public class Parser {
                 e.printStackTrace();
             }
         });
-
-
         getGroupThread.start();
 
         try {
@@ -134,8 +130,8 @@ public class Parser {
         Thread getSchedule = new Thread(() -> {
             try {
                 //получаем неделю
-                //sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
-                sheduleDocument = Jsoup.connect("https://realpepper.github.io/").get();
+                sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
+                //sheduleDocument = Jsoup.connect("https://realpepper.github.io/").get();
 
                 Elements scheduleTable = sheduleDocument.getElementsByTag("td");
 
@@ -188,14 +184,6 @@ public class Parser {
 
                     scheduleModels.add(scheduleModel);
                 }
-                //region Logs
-                //Log.d("complexParse", "таблы с расписанием " + scheduleTable.text());
-                //Log.d("complexParse", "неделя с сайта " + week.text());
-                //Log.d("complexParse", "день недели устройства " + c.get(Calendar.DAY_OF_WEEK));
-                //Log.d("complexParse", "дни недели с таблицы " + pairDays.text());
-                //Log.d("complexParse", "td " + tdSchedule.text());
-                //Log.d("complexParse", "schedule element " + lessonDiv.getElementsByTag("sup").size());
-                //endregion
             } catch (IOException e) {
                 e.printStackTrace();
             }
