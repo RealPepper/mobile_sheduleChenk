@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".service.ChangeScheduleNotification" />
+        <receiver android:name=".NitificationService.ChangeScheduleNotification" />
 
         <activity
             android:name=".activities.SplashActivity"

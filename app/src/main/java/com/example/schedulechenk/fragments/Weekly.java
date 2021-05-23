@@ -1,9 +1,7 @@
 package com.example.schedulechenk.fragments;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -14,9 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.schedulechenk.R;
 import com.example.schedulechenk.adapters.WeeklyPagerScheduleAdapter;
@@ -24,14 +19,12 @@ import com.example.schedulechenk.databinding.ActivityWeeklyBinding;
 import com.example.schedulechenk.models.PairModel;
 import com.example.schedulechenk.models.ScheduleModel;
 import com.example.schedulechenk.parser.Parser;
-import com.example.schedulechenk.service.ChangeScheduleNotification;
+import com.example.schedulechenk.NitificationService.ChangeScheduleNotification;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
