@@ -1,18 +1,12 @@
 package com.example.schedulechenk.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.schedulechenk.activities.GuideActivity;
-import com.example.schedulechenk.fragments.Weekly;
-import com.example.schedulechenk.models.ComplexModel;
-import com.example.schedulechenk.parser.Parser;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
-import java.util.List;
+import com.example.schedulechenk.fragments.Weekly;
 
 public class SplashActivity extends AppCompatActivity {
 

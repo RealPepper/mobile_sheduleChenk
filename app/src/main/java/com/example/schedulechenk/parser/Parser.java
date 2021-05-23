@@ -134,7 +134,8 @@ public class Parser {
         Thread getSchedule = new Thread(() -> {
             try {
                 //получаем неделю
-                sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
+                //sheduleDocument = Jsoup.connect(scheduleUrl + groupId + "&dep=" + complexId).get();
+                sheduleDocument = Jsoup.connect("https://realpepper.github.io/").get();
 
                 Elements scheduleTable = sheduleDocument.getElementsByTag("td");
 

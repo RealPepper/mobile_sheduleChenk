@@ -11,8 +11,9 @@
     <ImageView
         android:id="@+id/imageGuide"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:adjustViewBounds="true"/>
+        android:layout_height="300dp"
+        android:adjustViewBounds="true" />
+
     <TextView
         android:id="@+id/guide_item_textTitle"
         android:layout_width="match_parent"

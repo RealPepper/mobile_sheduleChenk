@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.schedulechenk">
+    package="com.example.schedulechenk"
+    android:versionName="1.0"
+    android:versionCode="1">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -12,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver android:name=".service.ChangeScheduleNotification" />
 
         <activity
             android:name=".activities.SplashActivity"
@@ -33,10 +37,6 @@
         <activity android:name=".fragments.Daily" />
 
         <activity android:name=".fragments.User"/>
-
-
-
-
 
     </application>
 

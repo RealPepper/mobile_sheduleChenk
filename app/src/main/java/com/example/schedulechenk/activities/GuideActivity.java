@@ -39,6 +39,7 @@ public class GuideActivity extends AppCompatActivity {
         final ViewPager2 guideViewPager = findViewById(R.id.guideViewPager);
         guideViewPager.setAdapter(guideAdapter);
 
+
         Bundle extras =getIntent().getExtras();
 
         setupGuideIndicators();

@@ -2,7 +2,7 @@ package com.example.schedulechenk.models;
 
 import java.util.List;
 
-public class ScheduleModel {
+public class ScheduleModel{
     private String week;
     private String day;
     private List<PairModel> pairModels;
@@ -29,5 +29,14 @@ public class ScheduleModel {
 
     public void setPairModels(List<PairModel> pairModels) {
         this.pairModels = pairModels;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj == this)return true;
+        ScheduleModel scheduleModel = (ScheduleModel) obj;
+        return scheduleModel.week == week &&
+               scheduleModel.day == day &&
+               scheduleModel.pairModels == pairModels;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.schedulechenk.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.example.schedulechenk.databinding.ItemRecyclerContainerScheduleBindin
 import com.example.schedulechenk.models.GroupModel;
 import com.example.schedulechenk.models.ScheduleModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class WeeklyPagerScheduleAdapter extends RecyclerView.Adapter<WeeklyPagerScheduleAdapter.WeeklyPagerScheduleViewHolder>{
@@ -73,7 +76,6 @@ public class WeeklyPagerScheduleAdapter extends RecyclerView.Adapter<WeeklyPager
 
             weeklyRecyclerScheduleAdapter = new WeeklyRecyclerScheduleAdapter(scheduleModel.getPairModels());
             itemRecyclerContainerScheduleBinding.scheduleRecyclerView.setAdapter(weeklyRecyclerScheduleAdapter);
-
         }
     }
 

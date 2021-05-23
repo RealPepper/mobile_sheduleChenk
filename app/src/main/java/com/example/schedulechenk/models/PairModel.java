@@ -64,4 +64,39 @@ public class PairModel {
     public void setCabinet(String cabinet) {
         this.cabinet = cabinet;
     }
+
+    @Override
+    public boolean equals(Object obj){ //РЕАЛИЗУЕМ МЕТОД СРАВНЕНИЯ
+        /*if(this == obj) return true;
+
+        if(!(obj instanceof PairModel))
+            return false;
+
+        PairModel objPairModel = (PairModel) obj;
+        if(this.getPair() == objPairModel.getPair() &&
+           this.getStartTime() == objPairModel.getStartTime() &&
+           this.getEndTime() == objPairModel.getEndTime() &&
+           this.getIsCancel() == objPairModel.getIsCancel() &&
+           this.getEducator() == objPairModel.getEducator() &&
+           this.getDiscipline() == objPairModel.getDiscipline() &&
+           this.getCabinet() == objPairModel.getCabinet())
+            return true;
+        else
+            return false;*/
+
+
+
+
+
+        if(obj == this) return true; //ссылки идентичные, сравнение не требуется
+        PairModel pairModel = (PairModel) obj; //я сделаю без сравнения типов
+        return pairModel.pair.equals(pair)  &&
+                pairModel.startTime.equals(startTime)  &&
+                pairModel.endTime.equals(endTime)  &&
+                pairModel.isCancel.equals(isCancel) &&
+                pairModel.educator.equals(educator) &&
+                pairModel.discipline.equals(discipline) &&
+                pairModel.cabinet.equals(cabinet);
+    }
+
 }
